@@ -94,8 +94,8 @@ public class TuioDemo : Form, TuioListener
         {
             ID_0 = Image.FromFile("male-1.PNG"); // Provide path for SymbolID 0
             ID_1 = Image.FromFile("female-1.PNG"); // Provide path for SymbolID 1
-            ID_2 = Image.FromFile("pants1.jpg"); // Provide path for SymbolID 2
-            ID_3 = Image.FromFile("shirt1.jpg"); // Provide path for SymbolID 3
+            ID_2 = Image.FromFile("pants1.png"); // Provide path for SymbolID 2
+            ID_3 = Image.FromFile("shirt1.png"); // Provide path for SymbolID 3
         }
         catch (Exception ex)
         {
