@@ -32,6 +32,8 @@ public class TuioDemo : Form, TuioListener
     private Image back; // Background image for the form
     private Image ID_0; // Image for SymbolID == 0 (Male)
     private Image ID_1;  // Image for SymbolID == 1 (Female)
+    private Image ID_2; // Image for SymbolID == 2 (pants)
+    private Image ID_3; //// Image for SymbolID == 3 (shirt)
     private Image leftOfMale; // New image to the left of the male character
     private Image rightOfFemale; // New image to the right of the female character
 
@@ -92,6 +94,8 @@ public class TuioDemo : Form, TuioListener
         {
             ID_0 = Image.FromFile("male-1.PNG"); // Provide path for SymbolID 0
             ID_1 = Image.FromFile("female-1.PNG"); // Provide path for SymbolID 1
+            ID_2 = Image.FromFile("pants1.jpg"); // Provide path for SymbolID 2
+            ID_3 = Image.FromFile("shirt1.jpg"); // Provide path for SymbolID 3
         }
         catch (Exception ex)
         {
@@ -229,6 +233,9 @@ public class TuioDemo : Form, TuioListener
         if (currentDisplayedSymbolID == 0 && ID_0 != null)
         {
             g.DrawImage(ID_0, width / 2 - 50, height / 2, 120, 447); // Move male image to the center
+            g.DrawImage(ID_2, width / 2 - 150, height / 2, 120, 447); // Move male image to the center
+            g.DrawImage(ID_3, width / 2+ 150, height / 2, 120, 447); // Move male image to the center
+
         }
 
         // Move the female image to the center and hide the male
