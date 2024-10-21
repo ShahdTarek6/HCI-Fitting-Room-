@@ -1,6 +1,4 @@
-Based on the gathered information, here is a draft for the README file for your repository:
 
----
 
 # HCI-Fitting-Room-
 
