@@ -153,7 +153,7 @@ public class TuioDemo : Form, TuioListener
             currentDisplayedSymbolID = 1;
             Invalidate(); // Redraw to move the female image
         }
-    }
+        }
 
     public void updateTuioObject(TuioObject o)
     {
@@ -227,14 +227,16 @@ public class TuioDemo : Form, TuioListener
                     g.DrawImage(rightOfFemale, fixedPositionOne.X + 95, fixedPositionOne.Y+150, 170, 70); // Right of female
                 }
             }
-        }
 
+        }
+        int flagMale = 0;   
         // Move the male image to the center and hide the female
         if (currentDisplayedSymbolID == 0 && ID_0 != null)
         {
+            flagMale = 1;
             g.DrawImage(ID_0, width / 2 - 50, height / 2, 120, 447); // Move male image to the center
-            g.DrawImage(ID_2, width / 2 - 150, height / 2, 120, 447); // Move male image to the center
-            g.DrawImage(ID_3, width / 2+ 150, height / 2, 120, 447); // Move male image to the center
+            g.DrawImage(ID_2, width / 2 - 550, height / 2+200, 60, 223); // Minimized pants image
+            g.DrawImage(ID_3, width / 2 + 550, height / 2+200, 60, 223); // Minimized shirt i
 
         }
 
@@ -243,6 +245,8 @@ public class TuioDemo : Form, TuioListener
         {
             g.DrawImage(ID_1, width / 2 - 50, height / 2, 120, 447); // Move female image to the center
         }
+        
+
     }
 
     public static void Main(string[] argv)
