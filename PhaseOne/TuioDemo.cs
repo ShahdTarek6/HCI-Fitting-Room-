@@ -34,6 +34,11 @@ public class TuioDemo : Form, TuioListener
     private Image ID_1;  // Image for SymbolID == 1 (Female)
     private Image ID_2; // Image for SymbolID == 2 (pants)
     private Image ID_3; //// Image for SymbolID == 3 (shirt)
+    private Image ID_4; //// Image for SymbolID == 4 (shoes)
+    private Image ID_5; //// Image for SymbolID == 5 (suit)
+    private Image ID_6; //// Image for SymbolID == 6 (glasses)
+    private Image ID_7; //// Image for SymbolID == 7 (bag)
+ 
     private Image leftOfMale; // New image to the left of the male character
     private Image rightOfFemale; // New image to the right of the female character
 
@@ -96,6 +101,11 @@ public class TuioDemo : Form, TuioListener
             ID_1 = Image.FromFile("female-1.PNG"); // Provide path for SymbolID 1
             ID_2 = Image.FromFile("pants1.png"); // Provide path for SymbolID 2
             ID_3 = Image.FromFile("shirt1.png"); // Provide path for SymbolID 3
+            ID_4 = Image.FromFile("Boot1.png"); // Provide path for SymbolID 4
+            ID_5 = Image.FromFile("suit1.png"); // Provide path for SymbolID 5
+            ID_6 = Image.FromFile("glasses2.png"); // Provide path for SymbolID 6
+            ID_7 = Image.FromFile("bag1.png"); // Provide path for SymbolID 7
+
         }
         catch (Exception ex)
         {
@@ -143,17 +153,9 @@ public class TuioDemo : Form, TuioListener
 
     public void addTuioObject(TuioObject o)
     {
-        if (o.SymbolID == 0 && ID_0 != null)
-        {
-            currentDisplayedSymbolID = 0;
-            Invalidate(); // Redraw to move the male image
-        }
-        else if (o.SymbolID == 1 && ID_1 != null)
-        {
-            currentDisplayedSymbolID = 1;
-            Invalidate(); // Redraw to move the female image
-        }
-        }
+        currentDisplayedSymbolID = o.SymbolID;
+        Invalidate();
+    }
 
     public void updateTuioObject(TuioObject o)
     {
@@ -233,18 +235,30 @@ public class TuioDemo : Form, TuioListener
         // Move the male image to the center and hide the female
         if (currentDisplayedSymbolID == 0 && ID_0 != null)
         {
-            flagMale = 1;
+            flagMale++;
             g.DrawImage(ID_0, width / 2 - 50, height / 2, 120, 447); // Move male image to the center
             g.DrawImage(ID_2, width / 2 - 550, height / 2+200, 60, 223); // Minimized pants image
-            g.DrawImage(ID_3, width / 2 + 550, height / 2+200, 60, 223); // Minimized shirt i
+            g.DrawImage(ID_3, width / 2 + 550, height / 2+200, 60, 223); // Minimized shirt 
+            g.DrawImage(ID_4, width / 2 + 500, height / 2 + 200, 60, 223); // Minimized shoes
+            g.DrawImage(ID_5, width / 2 - 500, height / 2 + 200, 60, 223); // Minimized suit
+            g.DrawImage(ID_6, width / 2 + 450, height / 2 + 200, 60, 223); // Minimized glasses
+            g.DrawImage(ID_7, width / 2 - 450, height / 2 + 200, 60, 223); // Minimized bag
+
+
 
         }
-
+        if(currentDisplayedSymbolID== 3 && ID_3 != null)
+        {
+            g.DrawImage(ID_0, width / 2 - 50, height / 2, 120, 447); // Move male image to the center
+            g.DrawImage(ID_2, width / 2 - 550, height / 2 + 200, 60, 223); // Minimized pants image
+            g.DrawImage(ID_3, width / 2- 50, height / 2+90, 120, 223); // Draw shirt in the center
+        }
         // Move the female image to the center and hide the male
         if (currentDisplayedSymbolID == 1 && ID_1 != null)
         {
             g.DrawImage(ID_1, width / 2 - 50, height / 2, 120, 447); // Move female image to the center
         }
+
         
 
     }
