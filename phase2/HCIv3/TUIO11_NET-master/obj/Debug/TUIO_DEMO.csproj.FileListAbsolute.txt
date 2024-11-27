@@ -1,0 +1,66 @@
+/Users/moamenibrahem/Downloads/TUIO11_NET-master/bin/Debug/TuioDemo.exe
+/Users/moamenibrahem/Downloads/TUIO11_NET-master/bin/Debug/TuioDemo.pdb
+/Users/moamenibrahem/Downloads/TUIO11_NET-master/obj/Debug/TUIO_DEMO.csproj.AssemblyReference.cache
+/Users/moamenibrahem/Downloads/TUIO11_NET-master/obj/Debug/TUIO_DEMO.csproj.CoreCompileInputs.cache
+/Users/moamenibrahem/Downloads/TUIO11_NET-master/obj/Debug/TuioDemo.exe
+/Users/moamenibrahem/Downloads/TUIO11_NET-master/obj/Debug/TuioDemo.pdb
+E:\users\221369\Downloads\Lab 2 - TUIO + GUI-20241005\TUIO11_NET-master (3)\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+E:\users\221369\Downloads\Lab 2 - TUIO + GUI-20241005\TUIO11_NET-master (3)\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+E:\users\221369\Downloads\Lab 2 - TUIO + GUI-20241005\TUIO11_NET-master (3)\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csprojAssemblyReference.cache
+E:\users\221369\Downloads\Lab 2 - TUIO + GUI-20241005\TUIO11_NET-master (3)\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+E:\users\221369\Downloads\Lab 2 - TUIO + GUI-20241005\TUIO11_NET-master (3)\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+E:\users\221369\Downloads\Lab 2 - TUIO + GUI-20241005\TUIO11_NET-master (3)\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.SuggestedBindingRedirects.cache
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+C:\Users\marin\Downloads\marena_tio\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.SuggestedBindingRedirects.cache
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+C:\Users\marin\OneDrive\Desktop\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.SuggestedBindingRedirects.cache
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+C:\Users\marin\OneDrive\Desktop\HCI\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+D:\Downloads\TUIO11_NET-master3\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+D:\Downloads\HCIv2\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+D:\Downloads\HCIv2\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+D:\Downloads\HCIv2\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+D:\Downloads\HCIv2\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+D:\Downloads\HCIv2\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+D:\Downloads\HCIv2\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+D:\Downloads\HCIv2\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.SuggestedBindingRedirects.cache
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+D:\Uni\semester 7\CS484\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.SuggestedBindingRedirects.cache
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+C:\Users\marin\OneDrive\Desktop\HCIv3 (1)\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
