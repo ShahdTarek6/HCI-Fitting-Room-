@@ -1,6 +1,6 @@
 
 
-# HCI-Fitting-Room-
+# HCI-Virtual-Fitting-Room
 
 **Description:**  
 This project compares three different interactions for a fitting room experience:
