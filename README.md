@@ -11,11 +11,11 @@ This project compares three different interactions for a fitting room experience
 **Installation Instructions:**  
 1. Clone the repository:
    ```sh
-   git clone https://github.com/ShahdTarek6/HCI-Fitting-Room-.git
+   git clone https://github.com/ShahdTarek6/HCI-Virtual-Fitting-Room.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd HCI-Fitting-Room-
+   cd HCI-Virtual-Fitting-Room
    ```
 3. Open the project in your preferred IDE (e.g., Visual Studio).
 
