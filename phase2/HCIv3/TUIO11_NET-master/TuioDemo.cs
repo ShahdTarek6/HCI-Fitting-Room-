@@ -185,6 +185,8 @@ public class TuioDemo : Form, TuioListener
     private float previousAlpha = 0;
     private int zoomControl = 0;
     private int inside = -1;
+    private bool DrawMenu = false;
+    private int counter = 0;
 
     public void StartSocketStream()
     {
@@ -617,8 +619,10 @@ public class TuioDemo : Form, TuioListener
      // Opacity and zoom controls
      else if (o.SymbolID == 100)
      {
-         useOpacity = true;
-         Invalidate();
+            DrawMenu = true;
+            currentDisplayedSymbolID = null;
+            //useOpacity = true;
+            Invalidate();
             inside = 100;
      }
      else if (o.SymbolID == 101)
@@ -659,6 +663,8 @@ public void updateTuioObject(TuioObject o)
             opacity = 0.5f;
             alpha = 0;
             previousAlpha = 0;
+            DrawMenu = false;
+            counter = 0;
         }
         else if (o.SymbolID == 101)
         {
@@ -687,15 +693,29 @@ public void updateTuioObject(TuioObject o)
         // Clear the background
         g.Clear(Color.FromArgb(189, 217, 229));
 
+        if (DrawMenu == true)
+        {
+            g.Clear(Color.FromArgb(189, 217, 229));
+            //Console.WriteLine("DrawMenu On");
+            DrawCircularMenu(g);
+        }
+        /*else
+        {
+            Console.WriteLine("DrawMenu off");
+        }*/
+
+        Console.WriteLine(currentDisplayedSymbolID);
+
         // Draw back1 initially if it exists; otherwise, draw the main background image (back) or fill color
-        if (showBack1 && back1 != null)
+        /*if (showBack1 && back1 != null)
         {
             g.DrawImage(back1, new Rectangle(0, 0, width, height));
         }
         else
         {
             DrawBackgroundImage(g); // Fallback to the default background
-        }
+        }*/
+        
 
         // Prioritize displaying the size image if currentSizeID is 201
         if (currentSizeID == 201 && size != null)
@@ -720,7 +740,7 @@ public void updateTuioObject(TuioObject o)
             return; // Return early to prevent other images from being drawn over
         }
 
-        if (currentDisplayedSymbolID.HasValue)
+        if (currentDisplayedSymbolID.HasValue && DrawMenu == false)
         {
             DrawCurrentSymbol(g);
         }
@@ -790,7 +810,7 @@ public void updateTuioObject(TuioObject o)
     };
         // Check if currentDisplayedSymbolID has an entry in symbolImageData
         if (currentDisplayedSymbolID.HasValue &&
-            symbolImageData.TryGetValue(currentDisplayedSymbolID.Value, out SymbolImageInfo symbolInfo))
+            symbolImageData.TryGetValue(currentDisplayedSymbolID.Value, out SymbolImageInfo symbolInfo) && DrawMenu == false)
         {
             // Extract the symbol image, width, and height from the symbolInfo object
             var symbolImage = symbolInfo.Image;
@@ -1201,6 +1221,83 @@ public void updateTuioObject(TuioObject o)
         {
             g.DrawImage(img, x, y, width, height);
         }
+    }
+
+    private void DrawCircularMenu(Graphics g)
+    {
+        currentDisplayedSymbolID = null;
+        currentSizeID = null;
+        g.FillRectangle(bgrBrush, new Rectangle(0, 0, screen_width, screen_height));
+        g.DrawImage(ID_01s, screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+        g.DrawImage(ID_03s, screen_width / 2 + (80), screen_height / 2, 100, 200);
+        g.DrawImage(ID_02s, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+        
+        Rectangle rect1 = new Rectangle(screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+        Rectangle rect3 = new Rectangle(screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+        Rectangle rect2 = new Rectangle(screen_width / 2 + (80), screen_height / 2, 100, 200);
+        
+        lock (blobList)
+        {
+            if (objectList.Count > 0)
+            {
+                foreach (TuioObject tobj in objectList.Values.ToList())
+                {
+
+                    alpha = (float)(tobj.Angle / Math.PI * 180.0f);
+                    if (alpha > 180) // this if statement is created because tobj.angle has only +ve values
+                    {
+                        alpha -= 360; // Adjust to the negative range
+                    }
+                    if (alpha > previousAlpha)
+                    {
+
+                        if (counter <= 2)
+                        {
+                            counter++;
+                        }
+                        else
+                        {
+                            counter = 0;
+                        }
+
+                        previousAlpha = alpha;
+                    }
+                    else if( alpha < previousAlpha)
+                    {
+                        if (counter > 0)
+                        {
+                            counter--;
+                        }
+                        else
+                        {
+                            counter = 2;
+                        }
+                        previousAlpha = alpha;
+                    }
+
+                    //Console.WriteLine($" Alpha = {alpha} || Previous = {previousAlpha} || diff = {alpha - previousAlpha} || counter = {counter}");
+                    Pen pen = new Pen(Color.Yellow, 8);
+                    switch (counter)
+                    {
+                        case 0:
+                            g.DrawRectangle(pen, rect1);
+                            currentDisplayedSymbolID = 7;
+                            break;
+                        case 1:
+                            g.DrawRectangle(pen, rect2);
+                            currentDisplayedSymbolID = 13;
+                            break;
+                        case 2:
+                            g.DrawRectangle(pen, rect3);
+                            currentDisplayedSymbolID = 10;
+                            break;
+                    }
+                }
+            }
+        }
+        
+                
+        //g.DrawRectangle()
     }
 
     public static void Main(string[] argv)
