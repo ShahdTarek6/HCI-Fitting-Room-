@@ -187,6 +187,7 @@ public class TuioDemo : Form, TuioListener
     private int inside = -1;
     private bool DrawMenu = false;
     private int counter = 0;
+    private string gender = null;
 
     public void StartSocketStream()
     {
@@ -427,6 +428,7 @@ public class TuioDemo : Form, TuioListener
          currentDisplayedSymbolID = 0;
          currentSizeID = null; // Reset size selection
          shouldRedraw = true;
+            gender = "male";
             inside = 0;
      }
      else if (o.SymbolID == 2 && ID_0s != null) // Male, small
@@ -517,6 +519,7 @@ public class TuioDemo : Form, TuioListener
          currentDisplayedSymbolID = 1;
          currentSizeID = null;
          shouldRedraw = true;
+            gender = "female";
             inside = 1;
      }
      else if (o.SymbolID == 3 && ID_1s != null) // Female, small
@@ -693,12 +696,7 @@ public void updateTuioObject(TuioObject o)
         // Clear the background
         g.Clear(Color.FromArgb(189, 217, 229));
 
-        if (DrawMenu == true)
-        {
-            g.Clear(Color.FromArgb(189, 217, 229));
-            //Console.WriteLine("DrawMenu On");
-            DrawCircularMenu(g);
-        }
+        
         /*else
         {
             Console.WriteLine("DrawMenu off");
@@ -707,15 +705,22 @@ public void updateTuioObject(TuioObject o)
         Console.WriteLine(currentDisplayedSymbolID);
 
         // Draw back1 initially if it exists; otherwise, draw the main background image (back) or fill color
-        /*if (showBack1 && back1 != null)
+        if (showBack1 && back1 != null && DrawMenu == false)
         {
             g.DrawImage(back1, new Rectangle(0, 0, width, height));
         }
         else
         {
             DrawBackgroundImage(g); // Fallback to the default background
-        }*/
-        
+        }
+
+        if (DrawMenu == true && gender != null)
+        {
+            //g.Clear(Color.FromArgb(189, 217, 229));
+            //Console.WriteLine("DrawMenu On");
+            DrawCircularMenu(g);
+        }
+
 
         // Prioritize displaying the size image if currentSizeID is 201
         if (currentSizeID == 201 && size != null)
@@ -1227,14 +1232,33 @@ public void updateTuioObject(TuioObject o)
     {
         currentDisplayedSymbolID = null;
         currentSizeID = null;
-        g.FillRectangle(bgrBrush, new Rectangle(0, 0, screen_width, screen_height));
-        g.DrawImage(ID_01s, screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
-        g.DrawImage(ID_03s, screen_width / 2 + (80), screen_height / 2, 100, 200);
-        g.DrawImage(ID_02s, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+        //g.FillRectangle(bgrBrush, new Rectangle(0, 0, screen_width, screen_height));
+        Rectangle rect1;
+        Rectangle rect2;
+        Rectangle rect3;
+        if (gender == "male")
+        {
+            g.DrawImage(ID_01s, screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+            g.DrawImage(ID_03s, screen_width / 2 + (80), screen_height / 2, 100, 200);
+            g.DrawImage(ID_02s, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+
+            rect1 = new Rectangle(screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+            rect3 = new Rectangle(screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+            rect2 = new Rectangle(screen_width / 2 + (80), screen_height / 2, 100, 200);
+        }
+        else
+        {
+            
+            g.DrawImage(ID_11m, screen_width / 2 + (80), screen_height / 2, 100, 200);
+            g.DrawImage(ID_12m, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+
+            rect1 = new Rectangle(screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+            rect3 = new Rectangle(screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+            rect2 = new Rectangle(screen_width / 2 + (80), screen_height / 2, 100, 200);
+        }
         
-        Rectangle rect1 = new Rectangle(screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
-        Rectangle rect3 = new Rectangle(screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
-        Rectangle rect2 = new Rectangle(screen_width / 2 + (80), screen_height / 2, 100, 200);
+        
+        
         
         lock (blobList)
         {
@@ -1248,50 +1272,100 @@ public void updateTuioObject(TuioObject o)
                     {
                         alpha -= 360; // Adjust to the negative range
                     }
-                    if (alpha > previousAlpha)
+                    if (gender == "male")
                     {
-
-                        if (counter <= 2)
+                        if (alpha > previousAlpha)
                         {
-                            counter++;
-                        }
-                        else
-                        {
-                            counter = 0;
-                        }
 
-                        previousAlpha = alpha;
+                            if (counter <= 2)
+                            {
+                                counter++;
+                            }
+                            else
+                            {
+                                counter = 0;
+                            }
+
+                            previousAlpha = alpha;
+                        }
+                        else if (alpha < previousAlpha)
+                        {
+                            if (counter > 0)
+                            {
+                                counter--;
+                            }
+                            else
+                            {
+                                counter = 2;
+                            }
+                            previousAlpha = alpha;
+                        }
                     }
-                    else if( alpha < previousAlpha)
+                    else
                     {
-                        if (counter > 0)
+                        if (alpha > previousAlpha)
                         {
-                            counter--;
+
+                            if (counter <= 1)
+                            {
+                                counter++;
+                            }
+                            else
+                            {
+                                counter = 0;
+                            }
+
+                            previousAlpha = alpha;
                         }
-                        else
+                        else if (alpha < previousAlpha)
                         {
-                            counter = 2;
+                            if (counter > 0)
+                            {
+                                counter--;
+                            }
+                            else
+                            {
+                                counter = 1;
+                            }
+                            previousAlpha = alpha;
                         }
-                        previousAlpha = alpha;
                     }
 
                     //Console.WriteLine($" Alpha = {alpha} || Previous = {previousAlpha} || diff = {alpha - previousAlpha} || counter = {counter}");
                     Pen pen = new Pen(Color.Yellow, 8);
-                    switch (counter)
+                    if(gender == "male")
                     {
-                        case 0:
-                            g.DrawRectangle(pen, rect1);
-                            currentDisplayedSymbolID = 7;
-                            break;
-                        case 1:
-                            g.DrawRectangle(pen, rect2);
-                            currentDisplayedSymbolID = 13;
-                            break;
-                        case 2:
-                            g.DrawRectangle(pen, rect3);
-                            currentDisplayedSymbolID = 10;
-                            break;
+                        switch (counter)
+                        {
+                            case 0:
+                                g.DrawRectangle(pen, rect1);
+                                currentDisplayedSymbolID = 7;
+                                break;
+                            case 1:
+                                g.DrawRectangle(pen, rect2);
+                                currentDisplayedSymbolID = 13;
+                                break;
+                            case 2:
+                                g.DrawRectangle(pen, rect3);
+                                currentDisplayedSymbolID = 10;
+                                break;
+                        }
                     }
+                    else
+                    {
+                        switch (counter)
+                        {
+                            case 0:
+                                g.DrawRectangle(pen, rect3);
+                                currentDisplayedSymbolID = 19;
+                                break;
+                            case 1:
+                                g.DrawRectangle(pen, rect2);
+                                currentDisplayedSymbolID = 16;
+                                break;
+                        }
+                    }
+                    
                 }
             }
         }
