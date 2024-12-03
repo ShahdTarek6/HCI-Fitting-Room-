@@ -2,6 +2,15 @@ import cv2
 import mediapipe as mp
 from dollarpy import Recognizer, Template, Point
 
+import socket
+
+mySocket = socket.socket()
+hostname="localhost"# 127.0.0.1 #0.0.0.0
+port=4000
+mySocket.bind((hostname,port))
+mySocket.listen(1)
+conn , addr = mySocket.accept()
+
 # Initialize pose estimator
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -557,6 +566,8 @@ while cap.isOpened():
                 framecnt = 0
                 result = recognizer.recognize(Allpoints)
                 print(f"Gesture recognized: {result}")
+                msg2 =bytes(result, 'utf-8')
+                conn.send(result)
                 Allpoints.clear()
 
             # Draw pose landmarks
