@@ -198,10 +198,10 @@ public class TuioDemo : Form, TuioListener
         }
     }
 
-    public void stream()
+    public void stream(string ip, int portNumber)
     {
         Client c = new Client();
-        if (c.connectToSocket("127.0.0.1", 4000)) // Consistent port
+        if (c.connectToSocket(ip, portNumber)) // Consistent port
         {
             string msg = "";
             while (true)
@@ -228,9 +228,13 @@ public class TuioDemo : Form, TuioListener
 
     public TuioDemo(int port)
     {
-        Thread thread = new Thread(new ThreadStart(stream)); // create new thread to prevent blocking the form
-        thread.IsBackground = true; // Ensures thread will close when the form closes
-        thread.Start();
+        Thread handGestureThread = new Thread(() => stream("127.0.0.1", 4000));
+        Thread objectDetectionThread = new Thread(() => stream("127.0.0.2", 5000));// create new thread to prevent blocking the form
+        handGestureThread.IsBackground = true; // Ensures thread will close when the form closes
+        handGestureThread.Start();
+
+        objectDetectionThread.IsBackground = true; // Ensures thread will close when the form closes
+        objectDetectionThread.Start();
         //verbose = false;
         fullscreen = true; // Start in fullscreen
         width = screen_width;

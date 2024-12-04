@@ -5,15 +5,15 @@ from dollarpy import Recognizer, Template, Point
 import socket
 
 mySocket = socket.socket()
-hostname="localhost"# 127.0.0.1 #0.0.0.0
-port=4000
+hostname="127.0.0.2"# 127.0.0.1 #0.0.0.0
+port=5000
 mySocket.bind((hostname,port))
 mySocket.listen(1)
 conn , addr = mySocket.accept()
 
 # Initialize pose estimator
 mp_drawing = mp.solutions.drawing_utils
-mp_pose = mp.solutions.pose
+mp_pose = mp.solutions.posepip
 
 pose = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
