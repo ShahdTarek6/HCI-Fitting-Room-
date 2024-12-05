@@ -14,7 +14,7 @@ print("device connected")
 # Initialize the webcam
 
 cap = cv2.VideoCapture(0)  # Change `0` to another number if you have multiple webcams
-
+print("Camera Opened")
 # Check if the webcam is opened correctly
 if not cap.isOpened():
     print("Error: Cannot access the webcam")
@@ -48,9 +48,9 @@ while True:
         class_id = int(first_box.cls)  # Class index
         confidence = first_box.conf  # Confidence score
         label = results[0].names[class_id]  # Class label
-    #print(label)
-    msg2 =bytes(label, 'utf-8')
-    conn.send(msg2)
+        #print(label)
+        msg2 =bytes(label, 'utf-8')
+        conn.send(msg2)
 
     # Display the frame with annotations
     cv2.imshow("YOLO Object Detection", annotated_frame)

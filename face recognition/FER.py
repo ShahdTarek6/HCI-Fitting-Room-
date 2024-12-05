@@ -2,6 +2,14 @@ import cv2
 import numpy as np
 import face_recognition
 from tensorflow.keras.models import load_model
+import socket
+
+mySocket = socket.socket()
+hostname="127.0.0.3"# 127.0.0.1 #0.0.0.0
+port=5000
+mySocket.bind((hostname,port))
+mySocket.listen(1)
+conn , addr = mySocket.accept()
 
 # Load the pre-trained emotion detection model
 emotion_model = load_model('model.h5')  # Replace with your emotion model file path
@@ -49,6 +57,8 @@ while True:
         if True in matches:
             first_match_index = matches.index(True)
             name = known_face_names[first_match_index]
+            msg2 =bytes(name, 'utf-8')
+            conn.send(msg2)
 
         # Draw a rectangle around the face
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)

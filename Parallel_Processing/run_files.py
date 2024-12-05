@@ -9,7 +9,7 @@ if __name__ == "__main__":
     # List of Python files to run
     files_to_run = [
         r"D:/Uni/semester 7/CS484/Project/Object_Detection/Detection.py",
-        r"D:/Uni/semester 7/CS484/Project/Gestures_Part/templates/testwizcam.py"
+        #qr"D:/Uni/semester 7/CS484/Project/Gestures_Part/templates/testwizcam.py"
     ]
 
     # Create and start processes
