@@ -319,17 +319,17 @@ public class TuioDemo : Form, TuioListener
         try
         {
             //male outfits
-            ID_01s = Image.FromFile("m-3.PNG"); 
-            ID_02s = Image.FromFile("m-4.PNG"); 
-            ID_03s = Image.FromFile("m-5.PNG"); 
+            ID_01s = Image.FromFile("m-1.PNG"); 
+            ID_02s = Image.FromFile("m-2.PNG"); 
+            ID_03s = Image.FromFile("m-3.PNG"); 
                                      
-            ID_01m = Image.FromFile("m-3.PNG"); 
-            ID_02m = Image.FromFile("m-4.PNG"); 
-            ID_03m = Image.FromFile("m-5.PNG"); 
+            ID_01m = Image.FromFile("m-1.PNG"); 
+            ID_02m = Image.FromFile("m-2.PNG"); 
+            ID_03m = Image.FromFile("m-3.PNG"); 
                                      
-            ID_01l = Image.FromFile("m-3.PNG"); 
-            ID_02l = Image.FromFile("m-4.PNG"); 
-            ID_03l = Image.FromFile("m-5.PNG");
+            ID_01l = Image.FromFile("m-1.PNG"); 
+            ID_02l = Image.FromFile("m-2.PNG"); 
+            ID_03l = Image.FromFile("m-3.PNG");
 
             outm = Image.FromFile("outm-c.PNG");
 
