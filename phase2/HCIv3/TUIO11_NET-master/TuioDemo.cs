@@ -188,7 +188,12 @@ public class TuioDemo : Form, TuioListener
     private bool DrawMenu = false;
     private int counter = 0;
     private string gender = null;
-
+    ///////////////////////
+    private Dictionary<string, string> ServerMessages = new Dictionary<string, string>
+    {
+        { "Gesture Program", null },
+        { "Face Rec", null },
+    };
     public void StartSocketStream()
     {
         Client c = new Client();
