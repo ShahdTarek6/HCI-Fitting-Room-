@@ -3,7 +3,7 @@ import cv2
 import socket
 
 mySocket = socket.socket()
-hostname="localhost"# 127.0.0.1 #0.0.0.0
+hostname="127.0.0.1"# 127.0.0.1 #0.0.0.0
 port=4000
 mySocket.bind((hostname,port))
 mySocket.listen(1)
@@ -21,7 +21,7 @@ if not cap.isOpened():
     exit()
 
 # Load the trained YOLO model
-model = YOLO(r"bestmodel.pt")  # Replace 'bestmodel.pt' with the path to your model file
+model = YOLO("D:/Uni/semester 7/CS484/Project/Object_Detection/bestmodel.pt")  # Replace 'bestmodel.pt' with the path to your model file
 
 print("Model loaded successfully!")
 
@@ -48,7 +48,7 @@ while True:
         class_id = int(first_box.cls)  # Class index
         confidence = first_box.conf  # Confidence score
         label = results[0].names[class_id]  # Class label
-    print(label)
+    #print(label)
     msg2 =bytes(label, 'utf-8')
     conn.send(msg2)
 
