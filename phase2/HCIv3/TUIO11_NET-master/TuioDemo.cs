@@ -98,8 +98,8 @@ public class TuioDemo : Form, TuioListener
     SolidBrush bgrBrush = new SolidBrush(Color.FromArgb(189, 217, 229));
 
     // Images
-    private Image back_m; // Background image for the form
-    private Image back_f;
+    private Image back_m = null; // Background image for the form
+    private Image back_f = null;
     private Image back1; // Initial background image to appear first
 
     private Image ID_0s;
@@ -190,17 +190,10 @@ public class TuioDemo : Form, TuioListener
     private int counter = 0;
     private int flag = -1;
     private string gender = null;
-
-    public void StartSocketStream()
-    {
-        Client c = new Client();
-        if (c.connectToSocket("127.0.0.1", 4000)) // Ensure matching port with Python code
-        {
-            Task.Run(() => c.streamMessages());
-        }
-    }
-
+    private string GestureMsg = null;
     private string manM = null;
+    private string BluetoothMsg = null;
+    private bool connToBluetooth = true;
 
     /////// MARINA FIX SAD / BLUETOOTH
 
@@ -213,34 +206,42 @@ public class TuioDemo : Form, TuioListener
             while (true)
             {
                 msg = c.receiveMessage();
+
                 if (msg != null)
                 {
                     //Console.WriteLine(msg);
-                    if(ip == "127.0.0.2")
+
+                    if (msg == "vest_dress")
                     {
-                        if(msg == "vest_dress")
-                        {
-                            manM = msg;
-                            Console.WriteLine(manM);
-                        }
+                        manM = msg;
+                        Console.WriteLine(manM);
                     }
-
-                    if (ip == "127.0.0.4")
+                    
+                    if (msg == "F")
                     {
-                        if (msg == "F")
-                        {
-                            Console.WriteLine("i am female ya marina");
-                            flag = 1;
-                            currentDisplayedSymbolID = 1;
-                            Console.WriteLine(flag);
-                        }
-                        else if (msg == "M")
-                        {
-                            //Console.WriteLine("i am female ya marina");
-                            flag = 0;
-                            currentDisplayedSymbolID = 0;
+                        Console.WriteLine(msg);
+                        flag = 1;
+                        currentDisplayedSymbolID = 1;
+                        //Console.WriteLine(flag);
+                        connToBluetooth = false;
+                        BluetoothMsg = msg;
+                    }
+                    else if (msg == "M")
+                    {
+                        Console.WriteLine(msg);
+                        flag = 0;
+                        currentDisplayedSymbolID = 0;
+                        //Console.WriteLine(flag);
+                        connToBluetooth = false;
+                        BluetoothMsg = msg;
 
-                        }
+                    }
+                    
+
+                    if(ip == "127.0.0.1")
+                    {
+                        GestureMsg = msg;
+                        Console.WriteLine(msg);
                     }
                    
                     
@@ -273,20 +274,19 @@ public class TuioDemo : Form, TuioListener
     public TuioDemo(int port)
     {
 
-        Thread handGestureThread = new Thread(() => stream("127.0.0.1", 4000));
-        Thread objectDetectionThread = new Thread(() => stream("127.0.0.2", 5000));// create new thread to prevent blocking the form
-        Thread faceThread = new Thread(() => stream("127.0.0.3", 6000));// create new thread to prevent blocking the form
-        Thread blueThread = new Thread(() => stream("127.0.0.4", 7000));// create new thread to prevent blocking the form
-
+        /*Thread handGestureThread = new Thread(() => stream("127.0.0.1", 4000));
         handGestureThread.IsBackground = true; // Ensures thread will close when the form closes
-        handGestureThread.Start();
+        handGestureThread.Start();*/
 
+        Thread objectDetectionThread = new Thread(() => stream("127.0.0.1", 4000));// create new thread to prevent blocking the form
         objectDetectionThread.IsBackground = true; // Ensures thread will close when the form closes
         objectDetectionThread.Start();
 
+        /*Thread faceThread = new Thread(() => stream("127.0.0.3", 6000));// create new thread to prevent blocking the form
         faceThread.IsBackground = true; // Ensures thread will close when the form closes
-        faceThread.Start();
+        faceThread.Start();*/
 
+        Thread blueThread = new Thread(() => stream("127.0.0.4", 7000));// create new thread to prevent blocking the form
         blueThread.IsBackground = true; // Ensures thread will close when the form closes
         blueThread.Start();
 
@@ -330,10 +330,9 @@ public class TuioDemo : Form, TuioListener
             Console.WriteLine("Error loading initial background image: " + ex.Message);
             back1 = null; // Ensure it's null if loading fails
         }
-        try
+        /*try
         {
-            back_m = Image.FromFile("back-m.PNG"); // where male and female stand
-            back_f = Image.FromFile("back-f.PNG");
+            
 
         }
         catch (Exception ex)
@@ -341,7 +340,7 @@ public class TuioDemo : Form, TuioListener
             Console.WriteLine("Error loading background image: " + ex.Message);
             back_m = null;
             back_f = null;// Ensure it's null if loading fails
-        }
+        }*/
         
 
 
@@ -393,12 +392,7 @@ public class TuioDemo : Form, TuioListener
         {
             Console.WriteLine("Error loading image: " + ex.Message);
         }
-
-
-        
-
-
-      
+    
 
         // Set fixed positions for male and female images (left and right of the screen)
         fixedPositionZero = new Point(600, height / 2-5); // Position for male image on the left
@@ -694,39 +688,46 @@ public void updateTuioObject(TuioObject o)
     public void removeTuioBlob(TuioBlob b) { }
     protected override void OnPaintBackground(PaintEventArgs pevent)
     {
+        //base.OnPaintBackground(pevent);
         Graphics g = pevent.Graphics;
 
         // Clear the background
         g.Clear(Color.FromArgb(189, 217, 229));
 
-
         /////////////////////////////////////////////////////////DRAW BLUETOOTH///////////////////////////////////////////////////////////////////////////////////////////////
-        if (flag == 0)
+        if (BluetoothMsg == "M")
         {
-            currentDisplayedSymbolID = 0;
+            Console.WriteLine("in");
+            //currentDisplayedSymbolID = 0;
             gender = "male";
+            back_m = Image.FromFile("back-m.PNG");
+
             DrawBLUETOOTH(g);
         }
-        if (flag == 1)
+        else if (BluetoothMsg == "F")
         {
-           // MessageBox.Show("a3333333333333333333333");
-            currentDisplayedSymbolID = 1;
+            // MessageBox.Show("a3333333333333333333333");
+            //currentDisplayedSymbolID = 1;
             gender = "female";
+            back_f = Image.FromFile("back-f.PNG");
             DrawBLUETOOTH(g);
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-       
-        if (manM == "vest_dress")
+
+        if (manM == "vest_dress" && gender == "femle")
         {
             Console.WriteLine("hii222");
-
-           //DrawCircularMenu(g);
+            DrawCircularMenu(g);
+        }
+        else if(manM == "short_sleeved_shirt" && gender == "male")
+        {
+            DrawCircularMenu(g);
         }
 
         Console.WriteLine(currentDisplayedSymbolID);
 
         // Draw back1 initially if it exists; otherwise, draw the main background image (back) or fill color
-        if (showBack1 && back1 != null && DrawMenu == false)
+        if (showBack1 && back1 != null && DrawMenu == false && back_f == null && back_m == null)
         {
             g.DrawImage(back1, new Rectangle(0, 0, width, height));
         }
@@ -735,6 +736,7 @@ public void updateTuioObject(TuioObject o)
             DrawBackgroundImage(g); // Fallback to the default background
         }
 
+       
         if (DrawMenu == true && gender != null)
         {
             //g.Clear(Color.FromArgb(189, 217, 229));
@@ -742,6 +744,7 @@ public void updateTuioObject(TuioObject o)
             DrawCircularMenu(g);
         }
 
+        
 
         // Prioritize displaying the size image if currentSizeID is 201
         if (currentSizeID == 201 && size != null)
@@ -845,7 +848,7 @@ public void updateTuioObject(TuioObject o)
 
             // Clear previous drawings and draw the background
             g.Clear(this.BackColor);
-            if (back_m != null && back_f != null)
+            if (back_m != null || back_f != null)
             {
                 DrawBackgroundImage(g);
             }
@@ -1293,62 +1296,126 @@ public void updateTuioObject(TuioObject o)
                     {
                         alpha -= 360; // Adjust to the negative range
                     }
-                    if (gender == "male")
+                    if (GestureMsg == null)
                     {
-                        if (alpha > previousAlpha)
+                        if (gender == "male")
                         {
-
-                            if (counter <= 2)
+                            if (alpha > previousAlpha)
                             {
-                                counter++;
-                            }
-                            else
-                            {
-                                counter = 0;
-                            }
 
-                            previousAlpha = alpha;
+                                if (counter <= 2)
+                                {
+                                    counter++;
+                                }
+                                else
+                                {
+                                    counter = 0;
+                                }
+
+                                previousAlpha = alpha;
+                            }
+                            else if (alpha < previousAlpha)
+                            {
+                                if (counter > 0)
+                                {
+                                    counter--;
+                                }
+                                else
+                                {
+                                    counter = 2;
+                                }
+                                previousAlpha = alpha;
+                            }
                         }
-                        else if (alpha < previousAlpha)
+                        else
                         {
-                            if (counter > 0)
+                            if (alpha > previousAlpha)
                             {
-                                counter--;
+
+                                if (counter <= 2)
+                                {
+                                    counter++;
+                                }
+                                else
+                                {
+                                    counter = 0;
+                                }
+
+                                previousAlpha = alpha;
                             }
-                            else
+                            else if (alpha < previousAlpha)
                             {
-                                counter = 2;
+                                if (counter > 0)
+                                {
+                                    counter--;
+                                }
+                                else
+                                {
+                                    counter = 2;
+                                }
+                                previousAlpha = alpha;
                             }
-                            previousAlpha = alpha;
                         }
                     }
                     else
                     {
-                        if (alpha > previousAlpha)
+                        if (gender == "male")
                         {
-
-                            if (counter <= 2)
+                            if (GestureMsg == "right")
                             {
-                                counter++;
-                            }
-                            else
-                            {
-                                counter = 0;
-                            }
 
-                            previousAlpha = alpha;
+                                if (counter <= 2)
+                                {
+                                    counter++;
+                                }
+                                else
+                                {
+                                    counter = 0;
+                                }
+
+                                
+                            }
+                            else if (GestureMsg == "left")
+                            {
+                                if (counter > 0)
+                                {
+                                    counter--;
+                                }
+                                else
+                                {
+                                    counter = 2;
+                                }
+                                previousAlpha = alpha;
+                            }
                         }
-                        else if (alpha < previousAlpha)
+                        else
                         {
-                            if (counter > 0)
+                            if (GestureMsg == "right")
                             {
-                                counter--;
+
+                                if (counter <= 2)
+                                {
+                                    counter++;
+                                }
+                                else
+                                {
+                                    counter = 0;
+                                }
+
+                                
                             }
-                            else
+                            else if (GestureMsg == "left")
                             {
-                                counter = 2;
+                                if (counter > 0)
+                                {
+                                    counter--;
+                                }
+                                else
+                                {
+                                    counter = 2;
+                                }
+                                
                             }
-                            previousAlpha = alpha;
                         }
                     }
 

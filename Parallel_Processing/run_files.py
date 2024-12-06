@@ -8,8 +8,8 @@ def run_file(file_name):
 if __name__ == "__main__":
     # List of Python files to run
     files_to_run = [
-        r"D:/Uni/semester 7/CS484/Project/Object_Detection/Detection.py",
-        #qr"D:/Uni/semester 7/CS484/Project/Gestures_Part/templates/testwizcam.py"
+        r"D:/Uni/semester 7/CS484/Project/bluetooth/updatedBluetooth.py",
+        r"D:/Uni/semester 7/CS484/Project/Object_Detection/Detection.py",     
     ]
 
     # Create and start processes

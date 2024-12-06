@@ -13,7 +13,7 @@ conn , addr = mySocket.accept() #creates a new socket (conn) dedicated to that s
 print("device connected")
 # Initialize the webcam
 
-cap = cv2.VideoCapture(0)  # Change `0` to another number if you have multiple webcams
+cap = cv2.VideoCapture(1)  # Change `0` to another number if you have multiple webcams
 print("Camera Opened")
 # Check if the webcam is opened correctly
 if not cap.isOpened():

@@ -15,7 +15,7 @@ print("device connected")
 # Initialize the webcam
 
 # Load the Excel file with registered users
-file_path = r"bloutooth.xlsx"  # Replace with your Excel file path
+file_path = r"D:/Uni/semester 7/CS484/Project/bluetooth/bloutooth.xlsx"  # Replace with your Excel file path
 users_df = pd.read_excel(file_path)
 
 # Extract registered MAC addresses for quick lookup
