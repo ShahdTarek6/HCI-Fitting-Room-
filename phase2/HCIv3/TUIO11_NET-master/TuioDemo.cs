@@ -98,7 +98,8 @@ public class TuioDemo : Form, TuioListener
     SolidBrush bgrBrush = new SolidBrush(Color.FromArgb(189, 217, 229));
 
     // Images
-    private Image back; // Background image for the form
+    private Image back_m; // Background image for the form
+    private Image back_f;
     private Image back1; // Initial background image to appear first
 
     private Image ID_0s;
@@ -199,7 +200,7 @@ public class TuioDemo : Form, TuioListener
         }
     }
 
-    string manM;
+    private string manM = null;
 
     /////// MARINA FIX SAD / BLUETOOTH
 
@@ -215,34 +216,42 @@ public class TuioDemo : Form, TuioListener
                 if (msg != null)
                 {
                     //Console.WriteLine(msg);
-                    manM = msg;
-
-                    if (manM == "vest_dress")
+                    if(ip == "127.0.0.2")
                     {
-                        Console.WriteLine(manM);
+                        if(msg == "vest_dress")
+                        {
+                            manM = msg;
+                            Console.WriteLine(manM);
+                        }
+                    }
 
-                    }
-                    if (msg=="F")
+                    if (ip == "127.0.0.4")
                     {
-                        Console.WriteLine("i am female ya marina");
-                        flag = 1;
-                        currentDisplayedSymbolID = 1;
-                        Console.WriteLine(flag);
+                        if (msg == "F")
+                        {
+                            Console.WriteLine("i am female ya marina");
+                            flag = 1;
+                            currentDisplayedSymbolID = 1;
+                            Console.WriteLine(flag);
+                        }
+                        else if (msg == "M")
+                        {
+                            //Console.WriteLine("i am female ya marina");
+                            flag = 0;
+                            currentDisplayedSymbolID = 0;
+
+                        }
                     }
-                    if (msg == "Marena Anis - Happy")
+                   
+                    
+                   /* if (msg == "Marena Anis - Happy")
                     {
                         Console.WriteLine("yahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
                         //flag = 1;
                         //currentDisplayedSymbolID = 1;
                         //Console.WriteLine(flag);
-                    }
-                    if (msg == "M")
-                    {
-                        //Console.WriteLine("i am female ya marina");
-                        flag = 0;
-                        currentDisplayedSymbolID = 0;
-
-                    }
+                    }*/
+                    
                     if (msg == "exit")
                     {
                         c.stream?.Close();
@@ -323,13 +332,15 @@ public class TuioDemo : Form, TuioListener
         }
         try
         {
-            back = Image.FromFile("back-f.PNG"); // where male and female stand
+            back_m = Image.FromFile("back-m.PNG"); // where male and female stand
+            back_f = Image.FromFile("back-f.PNG");
 
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error loading background image: " + ex.Message);
-            back = null; // Ensure it's null if loading fails
+            back_m = null;
+            back_f = null;// Ensure it's null if loading fails
         }
         
 
@@ -692,13 +703,15 @@ public void updateTuioObject(TuioObject o)
         /////////////////////////////////////////////////////////DRAW BLUETOOTH///////////////////////////////////////////////////////////////////////////////////////////////
         if (flag == 0)
         {
-           // currentDisplayedSymbolID = 0;
+            currentDisplayedSymbolID = 0;
+            gender = "male";
             DrawBLUETOOTH(g);
         }
         if (flag == 1)
         {
            // MessageBox.Show("a3333333333333333333333");
             currentDisplayedSymbolID = 1;
+            gender = "female";
             DrawBLUETOOTH(g);
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -795,28 +808,32 @@ public void updateTuioObject(TuioObject o)
     {
         // Define images and sizes for each SymbolID
         var symbolImageData = new Dictionary<int, SymbolImageInfo>
-    {
+        {
             //male outfit1 
-    { 6, new SymbolImageInfo(ID_01s, 155, 500) },   // Small
-    { 7, new SymbolImageInfo(ID_01m, 170, 500) }, // Medium
-    { 8, new SymbolImageInfo(ID_01l, 200, 500) }, // Large
+            { 6, new SymbolImageInfo(ID_01s, 155, 500) },   // Small
+            { 7, new SymbolImageInfo(ID_01m, 170, 500) }, // Medium
+            { 8, new SymbolImageInfo(ID_01l, 200, 500) }, // Large
+
+            //male outfit2 
+            { 9, new SymbolImageInfo(ID_01s, 155, 500) },   // Small
+            { 10, new SymbolImageInfo(ID_01m, 170, 500) }, // Medium
+            { 11, new SymbolImageInfo(ID_01l, 200, 500) }, // Large
     
-    //male outfit3
+            //male outfit3
+            { 12, new SymbolImageInfo(ID_03s, 155, 500) },    // Small
+            { 13, new SymbolImageInfo(ID_03m, 170, 500) },  // Medium
+            { 14, new SymbolImageInfo(ID_03l, 200, 500) },  // Large
     
-    { 12, new SymbolImageInfo(ID_03s, 155, 500) },    // Small
-    { 13, new SymbolImageInfo(ID_03m, 170, 500) },  // Medium
-    { 14, new SymbolImageInfo(ID_03l, 200, 500) },  // Large
-    
-    //female outfit1
-    { 15, new SymbolImageInfo(ID_11s, 155, 500) },    // Small
-    { 16, new SymbolImageInfo(ID_11m, 170, 500) },  // Medium
-    { 17, new SymbolImageInfo(ID_11l, 200, 500) },  // Large
-    //female outfit2
-    { 18, new SymbolImageInfo(ID_12s, 155, 500) },    // Small
-    { 19, new SymbolImageInfo(ID_12m, 170, 500) },  // Medium
-    { 20, new SymbolImageInfo(ID_12l, 200, 500) },  // Large
+            //female outfit1
+            { 15, new SymbolImageInfo(ID_11s, 155, 500) },    // Small
+            { 16, new SymbolImageInfo(ID_11m, 170, 500) },  // Medium
+            { 17, new SymbolImageInfo(ID_11l, 200, 500) },  // Large
+            //female outfit2
+            { 18, new SymbolImageInfo(ID_12s, 155, 500) },    // Small
+            { 19, new SymbolImageInfo(ID_12m, 170, 500) },  // Medium
+            { 20, new SymbolImageInfo(ID_12l, 200, 500) },  // Large
    
-    };
+        };
         // Check if currentDisplayedSymbolID has an entry in symbolImageData
         if (currentDisplayedSymbolID.HasValue &&
             symbolImageData.TryGetValue(currentDisplayedSymbolID.Value, out SymbolImageInfo symbolInfo) && DrawMenu == false)
@@ -828,7 +845,7 @@ public void updateTuioObject(TuioObject o)
 
             // Clear previous drawings and draw the background
             g.Clear(this.BackColor);
-            if (back != null)
+            if (back_m != null && back_f != null)
             {
                 DrawBackgroundImage(g);
             }
@@ -937,12 +954,15 @@ public void updateTuioObject(TuioObject o)
     //  draw background 
     private void DrawBackgroundImage(Graphics g)
     {
-        if (back != null)
+        if (back_m != null && gender == "male")
         {
-            g.DrawImage(back, new Rectangle(0, 0, width, height));
+            g.DrawImage(back_m, new Rectangle(0, 0, width, height));
         }
-
-        else
+        else if (back_f != null && gender == "female")
+        {
+            g.DrawImage(back_f, new Rectangle(0, 0, width, height));
+        }
+         else
             g.FillRectangle(bgrBrush, new Rectangle(0, 0, width, height));
     }
 
@@ -1370,7 +1390,6 @@ public void updateTuioObject(TuioObject o)
                                 break;
                         }
                     }
-
                 }
             }
         }

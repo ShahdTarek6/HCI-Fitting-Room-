@@ -80,3 +80,11 @@ C:\Users\marin\OneDrive\Desktop\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\FIN-NO ERROR-NO-
 C:\Users\marin\OneDrive\Desktop\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
 C:\Users\marin\OneDrive\Desktop\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.exe
 C:\Users\marin\OneDrive\Desktop\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\FIN-NO ERROR-NO-HAIDY-EXTRA BLU\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.exe.config
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.exe
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\bin\Debug\TuioDemo.pdb
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.AssemblyReference.cache
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.SuggestedBindingRedirects.cache
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\obj\Debug\TUIO_DEMO.csproj.CoreCompileInputs.cache
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.exe
+D:\Uni\semester 7\CS484\Project\phase2\HCIv3\TUIO11_NET-master\obj\Debug\TuioDemo.pdb
