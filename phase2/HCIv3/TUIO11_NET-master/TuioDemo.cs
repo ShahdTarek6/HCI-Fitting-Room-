@@ -191,7 +191,7 @@ public class TuioDemo : Form, TuioListener
     private int flag = -1;
     private string gender = null;
     private string GestureMsg = null;
-    private string manM = null;
+    private string ObjectMsg = null;
     private string BluetoothMsg = null;
     private bool connToBluetooth = true;
 
@@ -213,8 +213,8 @@ public class TuioDemo : Form, TuioListener
 
                     if (msg == "vest_dress")
                     {
-                        manM = msg;
-                        Console.WriteLine(manM);
+                        ObjectMsg = msg;
+                        Console.WriteLine(ObjectMsg);
                     }
                     
                     if (msg == "F")
@@ -619,7 +619,10 @@ public class TuioDemo : Form, TuioListener
         // Opacity and zoom controls
         else if (o.SymbolID == 100)
         {
-            DrawMenu = true;
+            if (ObjectMsg == null)
+            {
+                DrawMenu = true;
+            }     
             currentDisplayedSymbolID = null;
             //useOpacity = true;
             Invalidate();
@@ -663,7 +666,10 @@ public void updateTuioObject(TuioObject o)
             opacity = 0.5f;
             alpha = 0;
             previousAlpha = 0;
-            DrawMenu = false;
+            if (ObjectMsg == null)
+            {
+                DrawMenu = false;
+            }
             counter = 0;
         }
         else if (o.SymbolID == 101)
@@ -714,12 +720,12 @@ public void updateTuioObject(TuioObject o)
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if (manM == "vest_dress" && gender == "femle")
+        if (ObjectMsg == "vest_dress" && gender == "femle")
         {
             Console.WriteLine("hii222");
             DrawCircularMenu(g);
         }
-        else if(manM == "short_sleeved_shirt" && gender == "male")
+        else if(ObjectMsg == "short_sleeved_shirt" && gender == "male")
         {
             DrawCircularMenu(g);
         }
