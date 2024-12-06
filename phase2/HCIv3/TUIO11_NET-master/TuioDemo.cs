@@ -126,15 +126,15 @@ public class TuioDemo : Form, TuioListener
 
     //male outfits
     private Image ID_01s;
-    private Image ID_02s; //size small
+
     private Image ID_03s;
                      
     private Image ID_01m;
-    private Image ID_02m; //size meduim
+   
     private Image ID_03m;
                      
     private Image ID_01l;
-    private Image ID_02l; //size large
+ 
     private Image ID_03l;
 
     private Image outm;
@@ -187,13 +187,9 @@ public class TuioDemo : Form, TuioListener
     private int inside = -1;
     private bool DrawMenu = false;
     private int counter = 0;
+    private int flag = -1;
     private string gender = null;
-    ///////////////////////
-    private Dictionary<string, string> ServerMessages = new Dictionary<string, string>
-    {
-        { "Gesture Program", null },
-        { "Face Rec", null },
-    };
+
     public void StartSocketStream()
     {
         Client c = new Client();
@@ -202,6 +198,10 @@ public class TuioDemo : Form, TuioListener
             Task.Run(() => c.streamMessages());
         }
     }
+
+    string manM;
+
+    /////// MARINA FIX SAD / BLUETOOTH
 
     public void stream(string ip, int portNumber)
     {
@@ -214,7 +214,35 @@ public class TuioDemo : Form, TuioListener
                 msg = c.receiveMessage();
                 if (msg != null)
                 {
-                    Console.WriteLine(msg);
+                    //Console.WriteLine(msg);
+                    manM = msg;
+
+                    if (manM == "vest_dress")
+                    {
+                        Console.WriteLine(manM);
+
+                    }
+                    if (msg=="F")
+                    {
+                        Console.WriteLine("i am female ya marina");
+                        flag = 1;
+                        currentDisplayedSymbolID = 1;
+                        Console.WriteLine(flag);
+                    }
+                    if (msg == "Marena Anis - Happy")
+                    {
+                        Console.WriteLine("yahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+                        //flag = 1;
+                        //currentDisplayedSymbolID = 1;
+                        //Console.WriteLine(flag);
+                    }
+                    if (msg == "M")
+                    {
+                        //Console.WriteLine("i am female ya marina");
+                        flag = 0;
+                        currentDisplayedSymbolID = 0;
+
+                    }
                     if (msg == "exit")
                     {
                         c.stream?.Close();
@@ -231,15 +259,28 @@ public class TuioDemo : Form, TuioListener
         }
     }
 
+   
+
     public TuioDemo(int port)
     {
+
         Thread handGestureThread = new Thread(() => stream("127.0.0.1", 4000));
         Thread objectDetectionThread = new Thread(() => stream("127.0.0.2", 5000));// create new thread to prevent blocking the form
+        Thread faceThread = new Thread(() => stream("127.0.0.3", 6000));// create new thread to prevent blocking the form
+        Thread blueThread = new Thread(() => stream("127.0.0.4", 7000));// create new thread to prevent blocking the form
+
         handGestureThread.IsBackground = true; // Ensures thread will close when the form closes
         handGestureThread.Start();
 
         objectDetectionThread.IsBackground = true; // Ensures thread will close when the form closes
         objectDetectionThread.Start();
+
+        faceThread.IsBackground = true; // Ensures thread will close when the form closes
+        faceThread.Start();
+
+        blueThread.IsBackground = true; // Ensures thread will close when the form closes
+        blueThread.Start();
+
         //verbose = false;
         fullscreen = true; // Start in fullscreen
         width = screen_width;
@@ -283,32 +324,26 @@ public class TuioDemo : Form, TuioListener
         try
         {
             back = Image.FromFile("back-f.PNG"); // where male and female stand
+
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error loading background image: " + ex.Message);
             back = null; // Ensure it's null if loading fails
         }
-        try
-        {
-            size = Image.FromFile("size.PNG"); // Provide the path to the image
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error loading size option image 201: " + ex.Message);
-        }
+        
 
 
         // Load the images for SymbolID 0 (Male) and 1 (Female)
         try
         {
-            ID_0s = Image.FromFile("m-1.PNG"); 
-            ID_0m = Image.FromFile("m-1.PNG"); 
-            ID_0l = Image.FromFile("m-1.PNG"); 
-
-            ID_1s = Image.FromFile("f-3.PNG");
-            ID_1m = Image.FromFile("f-3.PNG"); 
-            ID_1l = Image.FromFile("f-3.PNG"); 
+            ID_0s = Image.FromFile("mm-1.PNG"); 
+            ID_0m = Image.FromFile("mm-1.PNG"); 
+            ID_0l = Image.FromFile("mm-1.PNG"); 
+                                        
+            ID_1s = Image.FromFile("ff-3.PNG");
+            ID_1m = Image.FromFile("ff-3.PNG"); 
+            ID_1l = Image.FromFile("ff-3.PNG"); 
         }
         catch (Exception ex)
         {
@@ -319,34 +354,28 @@ public class TuioDemo : Form, TuioListener
         try
         {
             //male outfits
-            ID_01s = Image.FromFile("m-1.PNG"); 
-            ID_02s = Image.FromFile("m-2.PNG"); 
-            ID_03s = Image.FromFile("m-3.PNG"); 
-                                     
-            ID_01m = Image.FromFile("m-1.PNG"); 
-            ID_02m = Image.FromFile("m-2.PNG"); 
-            ID_03m = Image.FromFile("m-3.PNG"); 
-                                     
-            ID_01l = Image.FromFile("m-1.PNG"); 
-            ID_02l = Image.FromFile("m-2.PNG"); 
-            ID_03l = Image.FromFile("m-3.PNG");
+            ID_01s = Image.FromFile("mm-3.PNG");                         
+            ID_01m = Image.FromFile("mm-3.PNG");                            
+            ID_01l = Image.FromFile("mm-3.PNG");
 
-            outm = Image.FromFile("outm-c.PNG");
+            ID_03s = Image.FromFile("mm-2.PNG");
+            ID_03m = Image.FromFile("mm-2.PNG");
+            ID_03l = Image.FromFile("mm-2.PNG");
+
 
             //female outfits
-            ID_11s = Image.FromFile("f-1.PNG");
-            ID_12s = Image.FromFile("f-2.PNG");
+            ID_11s = Image.FromFile("ff-1.PNG");
+            ID_12s = Image.FromFile("ff-2.PNG");
            
                                      
-            ID_11m = Image.FromFile("f-1.PNG");
-            ID_12m = Image.FromFile("f-2.PNG");
+            ID_11m = Image.FromFile("ff-1.PNG");
+            ID_12m = Image.FromFile("ff-2.PNG");
             
                                      
-            ID_11l = Image.FromFile("f-1.PNG");
-            ID_12l = Image.FromFile("f-2.PNG");
+            ID_11l = Image.FromFile("ff-1.PNG");
+            ID_12l = Image.FromFile("ff-2.PNG");
           
 
-            outf = Image.FromFile("outf-c.PNG");
 
         }
         catch (Exception ex)
@@ -355,37 +384,8 @@ public class TuioDemo : Form, TuioListener
         }
 
 
-        // Load the two new images
-        try
-        {
-            leftOfMale = Image.FromFile("m-b.PNG"); // Image on the left of the male character
-            rightOfFemale = Image.FromFile("f-b.PNG"); // Image on the right of the female character
-            next = Image.FromFile("next.PNG");
-            pre = Image.FromFile("pre.PNG");
-            cho = Image.FromFile("outfit.PNG");
-            chg = Image.FromFile("gender.PNG");
-            chs = Image.FromFile("siz.PNG");
-            chr = Image.FromFile("rnext.PNG");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error loading side images: " + ex.Message);
-        }
+        
 
-        // Load the images for SymbolID 20-25 ("Rate This Outfit" variations)
-        try
-        {
-            rate = Image.FromFile("rate.PNG"); // Provide path for the image
-            rate1 = Image.FromFile("rate1.PNG");
-            rate2 = Image.FromFile("rate2.PNG");
-            rate3 = Image.FromFile("rate3.PNG");
-            rate4 = Image.FromFile("rate4.PNG");
-            rate5 = Image.FromFile("rate5.PNG");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error loading outfit images: " + ex.Message);
-        }
 
       
 
@@ -414,242 +414,225 @@ public class TuioDemo : Form, TuioListener
     }
 
     private bool showBack1 = true;
- public void addTuioObject(TuioObject o)
+    private object g;
+
+    public void addTuioObject(TuioObject o)
  {
-     lock (objectList)
-     {
-         objectList.Add(o.SessionID, o);
-     }
-     if (verbose) Console.WriteLine("add obj " + o.SymbolID + " (" + o.SessionID + ") " + o.X + " " + o.Y + " " + o.Angle);
- 
-     bool shouldRedraw = false;
- 
-     // Handle special SymbolID 200 to remove back1 image
-     if (o.SymbolID == 200)
-     {
-         showBack1 = false;
-         shouldRedraw = true;
+        lock (objectList)
+        {
+            objectList.Add(o.SessionID, o);
+        }
+        if (verbose) Console.WriteLine("add obj " + o.SymbolID + " (" + o.SessionID + ") " + o.X + " " + o.Y + " " + o.Angle);
+
+        bool shouldRedraw = false;
+
+        // Handle special SymbolID 200 to remove back1 image
+        if (o.SymbolID == 200)
+        {
+            showBack1 = false;
+            shouldRedraw = true;
             inside = -1;
-      }
-     // Display specific images for male and female based on SymbolID and size
-     else if (o.SymbolID == 0 && ID_0m != null) // Male, medium
-     {
-         currentDisplayedSymbolID = 0;
-         currentSizeID = null; // Reset size selection
-         shouldRedraw = true;
+        }
+        // Display specific images for male and female based on SymbolID and size
+        else if (o.SymbolID == 0 && ID_0m != null) // Male, medium
+        {
+            currentDisplayedSymbolID = 0;
+            currentSizeID = null; // Reset size selection
+            shouldRedraw = true;
             gender = "male";
             inside = 0;
-     }
-     else if (o.SymbolID == 2 && ID_0s != null) // Male, small
-     {
-         currentDisplayedSymbolID = 2;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 2 && ID_0s != null) // Male, small
+        {
+            currentDisplayedSymbolID = 2;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 2;
-     }
-     else if (o.SymbolID == 4 && ID_0l != null) // Male, large
-     {
-         currentDisplayedSymbolID = 4;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 4 && ID_0l != null) // Male, large
+        {
+            currentDisplayedSymbolID = 4;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 4;
-     }
-     /////small sizes for the 3 male outfits
-     else if (o.SymbolID == 6 && ID_01s != null) 
-     {
-         currentDisplayedSymbolID = 6;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        /////small sizes for the 3 male outfits
+        else if (o.SymbolID == 6 && ID_01s != null)
+        {
+            currentDisplayedSymbolID = 6;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 6;
         }
-     else if (o.SymbolID == 9 && ID_02s != null) 
-     {
-         currentDisplayedSymbolID = 9;
-         currentSizeID = null;
-         shouldRedraw = true;
-            inside = 9;
-     }
-     else if (o.SymbolID == 12 && ID_03s != null) 
-     {
-         currentDisplayedSymbolID = 12;
-         currentSizeID = null;
-         shouldRedraw = true;
+        else if (o.SymbolID == 12 && ID_03s != null)
+        {
+            currentDisplayedSymbolID = 12;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 12;
-     }
- 
-     /////meduim sizes for the 3 male outfits
-     else if (o.SymbolID == 7 && ID_01m != null) 
-     {
-         currentDisplayedSymbolID = 7;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+
+        /////meduim sizes for the 3 male outfits
+        else if (o.SymbolID == 7 && ID_01m != null)
+        {
+            currentDisplayedSymbolID = 7;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 7;
-     }
-     else if (o.SymbolID == 10 && ID_02m != null)
-     {
-         currentDisplayedSymbolID = 10;
-         currentSizeID = null;
-         shouldRedraw = true;
-            inside = 10;
-     }
-     else if (o.SymbolID == 13 && ID_03m != null)
-     {
-         currentDisplayedSymbolID = 13;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+       
+        else if (o.SymbolID == 13 && ID_03m != null)
+        {
+            currentDisplayedSymbolID = 13;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 13;
-     }
- 
-     /////large sizes for the 3 male outfits
-     else if (o.SymbolID == 8 && ID_01l != null) 
-     {
-         currentDisplayedSymbolID = 8;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+
+        /////large sizes for the 3 male outfits
+        else if (o.SymbolID == 8 && ID_01l != null)
+        {
+            currentDisplayedSymbolID = 8;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 8;
-     }
-     else if (o.SymbolID == 11 && ID_02l != null) 
-     {
-         currentDisplayedSymbolID = 11;
-         currentSizeID = null;
-         shouldRedraw = true;
-            inside = 11;
-     }
-     else if (o.SymbolID == 14 && ID_03l != null) 
-     {
-         currentDisplayedSymbolID = 14;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+      
+        else if (o.SymbolID == 14 && ID_03l != null)
+        {
+            currentDisplayedSymbolID = 14;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 14;
-     }
- 
-     else if (o.SymbolID == 1 && ID_1m != null) // Female, medium
-     {
-         currentDisplayedSymbolID = 1;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+
+        else if (o.SymbolID == 1 && ID_1m != null) // Female, medium
+        {
+            currentDisplayedSymbolID = 1;
+            currentSizeID = null;
+            shouldRedraw = true;
             gender = "female";
             inside = 1;
-     }
-     else if (o.SymbolID == 3 && ID_1s != null) // Female, small
-     {
-         currentDisplayedSymbolID = 3;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 3 && ID_1s != null) // Female, small
+        {
+            currentDisplayedSymbolID = 3;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 3;
-     }
-     else if (o.SymbolID == 5 && ID_1l != null) // Female, large
-     {
-         currentDisplayedSymbolID = 5;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 5 && ID_1l != null) // Female, large
+        {
+            currentDisplayedSymbolID = 5;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 5;
-     }
- 
-     /////small sizes for the 3 female outfits
-     else if (o.SymbolID == 15 && ID_11s != null) 
-     {
-         currentDisplayedSymbolID = 15;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+
+        /////small sizes for the 3 female outfits
+        else if (o.SymbolID == 15 && ID_11s != null)
+        {
+            currentDisplayedSymbolID = 15;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 15;
-     }
-     else if (o.SymbolID == 18 && ID_12s != null) 
-     {
-         currentDisplayedSymbolID = 18;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 18 && ID_12s != null)
+        {
+            currentDisplayedSymbolID = 18;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 18;
-     }
-    
- 
-     /////meduim sizes for the 3 female outfits
-     else if (o.SymbolID == 16 && ID_11m != null) 
-     {
-         currentDisplayedSymbolID = 16;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+
+
+        /////meduim sizes for the 3 female outfits
+        else if (o.SymbolID == 16 && ID_11m != null)
+        {
+            currentDisplayedSymbolID = 16;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 16;
-     }
-     else if (o.SymbolID == 19 && ID_12m != null)
-     {
-         currentDisplayedSymbolID = 19;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 19 && ID_12m != null)
+        {
+            currentDisplayedSymbolID = 19;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 19;
-     }
-    
- 
-     /////large sizes for the 3 female outfits
-     else if (o.SymbolID == 17 && ID_11l != null) 
-     {
-         currentDisplayedSymbolID = 17;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+
+
+        /////large sizes for the 3 female outfits
+        else if (o.SymbolID == 17 && ID_11l != null)
+        {
+            currentDisplayedSymbolID = 17;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 17;
-     }
-     else if (o.SymbolID == 20 && ID_12l != null) 
-     {
-         currentDisplayedSymbolID = 20;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 20 && ID_12l != null)
+        {
+            currentDisplayedSymbolID = 20;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = 20;
-     }
-    
- 
- 
-     // Show the size image when SymbolID 201 is detected
-     else if (o.SymbolID == 201 && size != null)
-     {
-         currentSizeID = 201;
-         currentDisplayedSymbolID = null; // Clear other images when showing size
-         shouldRedraw = true;
+        }
+
+
+
+        // Show the size image when SymbolID 201 is detected
+        else if (o.SymbolID == 201 && size != null)
+        {
+            currentSizeID = 201;
+            currentDisplayedSymbolID = null; // Clear other images when showing size
+            shouldRedraw = true;
             inside = -1;
-     }
-     else if (o.SymbolID == 202 && outm != null)
-     {
-         currentSizeID = 202;
-         currentDisplayedSymbolID = null; // Clear other images when showing size
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 202 && outm != null)
+        {
+            currentSizeID = 202;
+            currentDisplayedSymbolID = null; // Clear other images when showing size
+            shouldRedraw = true;
             inside = -1;
-     }
-     else if (o.SymbolID == 203 && outf != null)
-     {
-         currentSizeID = 203;
-         currentDisplayedSymbolID = null; // Clear other images when showing size
-         shouldRedraw = true;
+        }
+        else if (o.SymbolID == 203 && outf != null)
+        {
+            currentSizeID = 203;
+            currentDisplayedSymbolID = null; // Clear other images when showing size
+            shouldRedraw = true;
             inside = -1;
-     }
-     // Handle "Rate This Outfit" images with SymbolIDs 20-25
-     else if (o.SymbolID >= 30 && o.SymbolID <= 35)
-     {
-         currentDisplayedSymbolID = (int)o.SymbolID;
-         currentSizeID = null;
-         shouldRedraw = true;
+        }
+        // Handle "Rate This Outfit" images with SymbolIDs 20-25
+        else if (o.SymbolID >= 30 && o.SymbolID <= 35)
+        {
+            currentDisplayedSymbolID = (int)o.SymbolID;
+            currentSizeID = null;
+            shouldRedraw = true;
             inside = -1;
-     }
-     // Opacity and zoom controls
-     else if (o.SymbolID == 100)
-     {
+        }
+        // Opacity and zoom controls
+        else if (o.SymbolID == 100)
+        {
             DrawMenu = true;
             currentDisplayedSymbolID = null;
             //useOpacity = true;
             Invalidate();
             inside = 100;
-     }
-     else if (o.SymbolID == 101)
-     {
-         useZoom = true;
-         Invalidate();
+        }
+        else if (o.SymbolID == 101)
+        {
+            useZoom = true;
+            Invalidate();
             inside = 101;
-     }
- 
-     // Trigger repaint if needed
-     if (shouldRedraw)
-     {
-         Invalidate();
-     }
- }
+        }
+
+        // Trigger repaint if needed
+        if (shouldRedraw)
+        {
+            Invalidate();
+        }
+    }
 
 
 
@@ -705,11 +688,27 @@ public void updateTuioObject(TuioObject o)
         // Clear the background
         g.Clear(Color.FromArgb(189, 217, 229));
 
-        
-        /*else
+
+        /////////////////////////////////////////////////////////DRAW BLUETOOTH///////////////////////////////////////////////////////////////////////////////////////////////
+        if (flag == 0)
         {
-            Console.WriteLine("DrawMenu off");
-        }*/
+           // currentDisplayedSymbolID = 0;
+            DrawBLUETOOTH(g);
+        }
+        if (flag == 1)
+        {
+           // MessageBox.Show("a3333333333333333333333");
+            currentDisplayedSymbolID = 1;
+            DrawBLUETOOTH(g);
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       
+        if (manM == "vest_dress")
+        {
+            Console.WriteLine("hii222");
+
+           //DrawCircularMenu(g);
+        }
 
         Console.WriteLine(currentDisplayedSymbolID);
 
@@ -802,10 +801,6 @@ public void updateTuioObject(TuioObject o)
     { 7, new SymbolImageInfo(ID_01m, 170, 500) }, // Medium
     { 8, new SymbolImageInfo(ID_01l, 200, 500) }, // Large
     
-    // male outfit2
-    { 9, new SymbolImageInfo(ID_02s, 155, 500) },    // Small
-    { 10, new SymbolImageInfo(ID_02m, 170, 500) },  // Medium
-    { 11, new SymbolImageInfo(ID_02l, 200, 500) },  // Large
     //male outfit3
     
     { 12, new SymbolImageInfo(ID_03s, 155, 500) },    // Small
@@ -938,60 +933,30 @@ public void updateTuioObject(TuioObject o)
         }
     }
 
-    ////opacity & zoom
-
-
+    
     //  draw background 
     private void DrawBackgroundImage(Graphics g)
     {
         if (back != null)
         {
             g.DrawImage(back, new Rectangle(0, 0, width, height));
-            if(inside == 0 || inside == 1)
-            {
-                g.DrawImage(pre, new Rectangle(fixedPositionZero.X - 120, fixedPositionZero.Y + 150, 170, 55));
-                g.DrawImage(next, new Rectangle(fixedPositionOne.X + 140, fixedPositionOne.Y + 160, 150, 38));
-                g.DrawImage(chg, new Rectangle(fixedPositionZero.X - 106, fixedPositionZero.Y + 200, 143, 38));
-                g.DrawImage(chs, new Rectangle(fixedPositionOne.X + 140, fixedPositionOne.Y + 160, 153, 38));
-                
-            }
-            else if( inside == 2 || inside == 3 || inside == 4 || inside == 5)
-            {
-                g.DrawImage(pre, new Rectangle(fixedPositionZero.X - 120, fixedPositionZero.Y + 150, 170, 55));
-                g.DrawImage(next, new Rectangle(fixedPositionOne.X + 140, fixedPositionOne.Y + 160, 150, 38));
-                g.DrawImage(chs, new Rectangle(fixedPositionOne.X + 140, fixedPositionOne.Y + 200, 150, 38));
-                g.DrawImage(cho, new Rectangle(fixedPositionZero.X - 106, fixedPositionZero.Y + 190, 153, 60));
-            }
-            else if (inside == 6 || inside == 7 || inside == 8 || inside == 9 ||
-                inside == 10 || inside == 11 || inside == 12 || inside == 13 ||
-                inside == 14 || inside == 15 || inside == 16 || inside == 17 ||
-                inside == 18 || inside == 19 || inside == 20 || inside == 21 ||
-                inside == 22 || inside == 23  )
-            {
-                g.DrawImage(pre, new Rectangle(fixedPositionZero.X - 120, fixedPositionZero.Y + 150, 170, 55));
-                g.DrawImage(next, new Rectangle(fixedPositionOne.X + 140, fixedPositionOne.Y + 160, 150, 38));
-                g.DrawImage(cho, new Rectangle(fixedPositionZero.X - 106, fixedPositionZero.Y + 190, 153, 60));
-                g.DrawImage(chr, new Rectangle(fixedPositionOne.X + 140, fixedPositionOne.Y + 200, 150, 38));
-            }
-
-
         }
-           
+
         else
             g.FillRectangle(bgrBrush, new Rectangle(0, 0, width, height));
     }
-
-
 
     // Draw male and female images if no size selected
     private void DrawInitialMaleAndFemaleImages(Graphics g)
     {
         //female and male signs button
-        DrawImageAtPosition(g, leftOfMale, fixedPositionZero.X - 150, fixedPositionZero.Y + 150, 170, 70);
-        DrawImageAtPosition(g, rightOfFemale, fixedPositionOne.X + 140, fixedPositionOne.Y + 150, 170, 70);
+        //DrawImageAtPosition(g, leftOfMale, fixedPositionZero.X - 150, fixedPositionZero.Y + 150, 170, 70);
+        //DrawImageAtPosition(g, rightOfFemale, fixedPositionOne.X + 140, fixedPositionOne.Y + 150, 170, 70);
         //male=0
+       // if(flag==0)
         DrawImageAtPosition(g, ID_0m, fixedPositionZero.X, fixedPositionZero.Y - 50, 180, 500);
         //female=1
+        //if(flag==1)
         DrawImageAtPosition(g, ID_1m, fixedPositionOne.X, fixedPositionOne.Y - 50, 160, 500);
 
     }
@@ -1055,28 +1020,7 @@ public void updateTuioObject(TuioObject o)
                 centerY = height / 2 - figureHeight / 3 + 100;
                 break;
 
-            // Male outfit 2 (small, medium, large)
-            case 9:   // Small
-                currentImage = ID_02s;
-                figureWidth = 155;
-                figureHeight = 500;
-                centerX = width / 2 - figureWidth / 2 + 20;
-                centerY = height / 2 - figureHeight / 4 + 60;
-                break;
-            case 10:  // Medium
-                currentImage = ID_02m;
-                figureWidth = 170;
-                figureHeight = 500;
-                centerX = width / 2 - figureWidth / 2 + 20;
-                centerY = height / 2 - figureHeight / 6 + 20;
-                break;
-            case 11:  // Large
-                currentImage = ID_02l;
-                figureWidth = 200;
-                figureHeight = 500;
-                centerX = width / 2 - figureWidth / 2 + 10;
-                centerY = height / 2 - figureHeight / 3 + 100;
-                break;
+      
 
             // Male outfit 3 (small, medium, large)
             case 12:  // Small
@@ -1224,6 +1168,54 @@ public void updateTuioObject(TuioObject o)
         }
     }
 
+    private void DrawBLUETOOTH(Graphics g)
+    {
+        // Determine the image, size, and position based on currentDisplayedSymbolID
+        Image currentImage = null;
+        int figureWidth = 180;  // Default width
+        int figureHeight = 530; // Default height
+        int centerX = 0;        // Default X position
+        int centerY = 0;        // Default Y position
+
+        // Adjust dimensions and positions for male outfits
+        switch (currentDisplayedSymbolID)
+        {
+            // Male main character sizes
+            case 0: // Medium
+                currentImage = ID_0m;
+                figureWidth = 180;
+                figureHeight = 530;
+                centerX = width / 2 - figureWidth / 2 + 20;
+                centerY = height / 2 - figureHeight / 6;
+                break;
+        
+            case 1:  // Medium
+                currentImage = ID_01m;
+                figureWidth = 170;
+                figureHeight = 500;
+                centerX = width / 2 - figureWidth / 2 + 20;
+                centerY = height / 2 - figureHeight / 6 + 20;
+                break;
+           
+        }
+
+        if (currentImage != null)
+        {
+            g.Clear(this.BackColor);
+            DrawBackgroundImage(g); // Draw background
+
+            // Draw the selected image with the specified dimensions and position
+            g.DrawImage(currentImage, centerX, centerY, figureWidth, figureHeight);
+        }
+    }
+
+
+
+    
+
+
+
+
 
 
 
@@ -1247,9 +1239,9 @@ public void updateTuioObject(TuioObject o)
         Rectangle rect3;
         if (gender == "male")
         {
-            g.DrawImage(ID_01s, screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+            g.DrawImage(ID_0s, screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
             g.DrawImage(ID_03s, screen_width / 2 + (80), screen_height / 2, 100, 200);
-            g.DrawImage(ID_02s, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+            g.DrawImage(ID_01s, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
 
             rect1 = new Rectangle(screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
             rect3 = new Rectangle(screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
@@ -1257,18 +1249,18 @@ public void updateTuioObject(TuioObject o)
         }
         else
         {
-            
-            g.DrawImage(ID_11m, screen_width / 2 + (80), screen_height / 2, 100, 200);
-            g.DrawImage(ID_12m, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
+            g.DrawImage(ID_1s, screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
+            g.DrawImage(ID_11s, screen_width / 2 + (80), screen_height / 2, 100, 200);
+            g.DrawImage(ID_12s, screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
 
             rect1 = new Rectangle(screen_width / 2 - 80, screen_height / 2 - 80, 100, 200);
             rect3 = new Rectangle(screen_width / 2 - (80 * 3), screen_height / 2, 100, 200);
             rect2 = new Rectangle(screen_width / 2 + (80), screen_height / 2, 100, 200);
         }
-        
-        
-        
-        
+
+
+
+
         lock (blobList)
         {
             if (objectList.Count > 0)
@@ -1315,7 +1307,7 @@ public void updateTuioObject(TuioObject o)
                         if (alpha > previousAlpha)
                         {
 
-                            if (counter <= 1)
+                            if (counter <= 2)
                             {
                                 counter++;
                             }
@@ -1334,7 +1326,7 @@ public void updateTuioObject(TuioObject o)
                             }
                             else
                             {
-                                counter = 1;
+                                counter = 2;
                             }
                             previousAlpha = alpha;
                         }
@@ -1342,13 +1334,13 @@ public void updateTuioObject(TuioObject o)
 
                     //Console.WriteLine($" Alpha = {alpha} || Previous = {previousAlpha} || diff = {alpha - previousAlpha} || counter = {counter}");
                     Pen pen = new Pen(Color.Yellow, 8);
-                    if(gender == "male")
+                    if (gender == "male")
                     {
                         switch (counter)
                         {
                             case 0:
                                 g.DrawRectangle(pen, rect1);
-                                currentDisplayedSymbolID = 7;
+                                currentDisplayedSymbolID = 0;
                                 break;
                             case 1:
                                 g.DrawRectangle(pen, rect2);
@@ -1356,7 +1348,7 @@ public void updateTuioObject(TuioObject o)
                                 break;
                             case 2:
                                 g.DrawRectangle(pen, rect3);
-                                currentDisplayedSymbolID = 10;
+                                currentDisplayedSymbolID = 7;
                                 break;
                         }
                     }
@@ -1365,23 +1357,28 @@ public void updateTuioObject(TuioObject o)
                         switch (counter)
                         {
                             case 0:
-                                g.DrawRectangle(pen, rect3);
-                                currentDisplayedSymbolID = 19;
+                                g.DrawRectangle(pen, rect1);
+                                currentDisplayedSymbolID = 1;
                                 break;
                             case 1:
                                 g.DrawRectangle(pen, rect2);
                                 currentDisplayedSymbolID = 16;
                                 break;
+                            case 2:
+                                g.DrawRectangle(pen, rect3);
+                                currentDisplayedSymbolID = 19;
+                                break;
                         }
                     }
-                    
+
                 }
             }
         }
-        
-                
+
+
         //g.DrawRectangle()
     }
+
 
     public static void Main(string[] argv)
     {
